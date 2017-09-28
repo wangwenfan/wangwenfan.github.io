@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://www.wangwenfan.com">
+  <title>用WebUpload实现简单文件上传功能 | 凡夫俗子</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这个图片上传工具可以配置成全局使用，包括单图上传、多图上传、视频上传、音频上传、编辑器图片视频上传、音频上传带播放功能。带附件历史记录功能。编辑器使用百度Ueditor开发。移动端上传为Weui改造。)
+
+使用方法
+一种为Thinkphp3.2集成，直接可以使用（需配置在项一级目录，二级目录会报错）。另一种为纯前端使用的jsdk。
+1.PHP使用方法
+pc端访问 yourpath/home/in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用WebUpload实现简单文件上传功能">
+<meta property="og:url" content="http://www.wangwenfan.com/posts/uncategorized/2017-09-06-用WebUpload实现简单文件上传功能.html">
+<meta property="og:site_name" content="凡夫俗子">
+<meta property="og:description" content="这个图片上传工具可以配置成全局使用，包括单图上传、多图上传、视频上传、音频上传、编辑器图片视频上传、音频上传带播放功能。带附件历史记录功能。编辑器使用百度Ueditor开发。移动端上传为Weui改造。)
+
+使用方法
+一种为Thinkphp3.2集成，直接可以使用（需配置在项一级目录，二级目录会报错）。另一种为纯前端使用的jsdk。
+1.PHP使用方法
+pc端访问 yourpath/home/in">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/98e19e2dgy1fj9xjkj8sjg20sy0hn7wh.gif">
+<meta property="og:updated_time" content="2017-09-06T09:26:16.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用WebUpload实现简单文件上传功能">
+<meta name="twitter:description" content="这个图片上传工具可以配置成全局使用，包括单图上传、多图上传、视频上传、音频上传、编辑器图片视频上传、音频上传带播放功能。带附件历史记录功能。编辑器使用百度Ueditor开发。移动端上传为Weui改造。)
+
+使用方法
+一种为Thinkphp3.2集成，直接可以使用（需配置在项一级目录，二级目录会报错）。另一种为纯前端使用的jsdk。
+1.PHP使用方法
+pc端访问 yourpath/home/in">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/98e19e2dgy1fj9xjkj8sjg20sy0hn7wh.gif">
+  
+    <link rel="alternative" href="/atom.xml" title="凡夫俗子" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">王文凡</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">凡夫俗子博客</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wangwenfan" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/2564922925/profile?topnav=1&wvr=6&is_all=1" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/wang-wen-fan-73/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">王文凡</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">王文凡</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">凡夫俗子博客</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔/">随笔</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wangwenfan" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2564922925/profile?topnav=1&wvr=6&is_all=1" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/wang-wen-fan-73/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-用WebUpload实现简单文件上传功能" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用WebUpload实现简单文件上传功能
+    </h1>
+  
+
+        <a href="/posts/uncategorized/2017-09-06-用WebUpload实现简单文件上传功能.html" class="archive-article-date">
+  	<time datetime="2017-09-06T09:23:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这个图片上传工具可以配置成全局使用，包括单图上传、多图上传、视频上传、音频上传、编辑器图片视频上传、音频上传带播放功能。带附件历史记录功能。编辑器使用百度Ueditor开发。移动端上传为Weui改造。<img src="https://ws1.sinaimg.cn/large/98e19e2dgy1fj9xjkj8sjg20sy0hn7wh.gif" alt="示例图片">)</p>
+</blockquote>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><blockquote>
+<p>一种为Thinkphp3.2集成，直接可以使用（需配置在项一级目录，二级目录会报错）。另一种为纯前端使用的jsdk。</p>
+<h4 id="1-PHP使用方法"><a href="#1-PHP使用方法" class="headerlink" title="1.PHP使用方法"></a>1.PHP使用方法</h4><ul>
+<li>pc端访问 <code>yourpath/home/index/index</code></li>
+<li>移动端访问 <code>yourpath/home/index/mobileindex</code><h5 id="项目配置文件"><a href="#项目配置文件" class="headerlink" title="项目配置文件"></a>项目配置文件</h5></li>
+<li>修改 <code>/resource/js/app/config.js</code></li>
+<li>修改 <code>/Application/Common/config.php</code><h5 id="核心文件"><a href="#核心文件" class="headerlink" title="核心文件"></a>核心文件</h5></li>
+<li>新增了 <code>/ThinkPHP/Library/Org/Util/UploadFile.class.php</code></li>
+<li>修改了 <code>/ThinkPHP/Think/Upload/Driver/Qiniu.class.php</code></li>
+</ul>
+</blockquote>
+<h5 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h5><ul>
+<li>附件表，可按需修改<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE `attachment` (</div><div class="line">  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &apos;自增ID&apos;,</div><div class="line">  `file_type` enum(&apos;1&apos;,&apos;2&apos;,&apos;3&apos;,&apos;4&apos;) NOT NULL COMMENT &apos;附件类型1图片2音频3视频4其他&apos;,</div><div class="line">  `file_name` varchar(100) NOT NULL COMMENT &apos;附件名&apos;,</div><div class="line">  `file_url` varchar(200) NOT NULL COMMENT &apos;附件地址&apos;,</div><div class="line">  `is_cdn` tinyint(1) NOT NULL DEFAULT &apos;0&apos; COMMENT &apos;是否在cdn，1是0否&apos;,</div><div class="line">  `file_size` int(11) NOT NULL DEFAULT &apos;0&apos; COMMENT &apos;附件大小&apos;,</div><div class="line">  `year` smallint(6) NOT NULL COMMENT &apos;上传年份&apos;,</div><div class="line">  `month` tinyint(2) NOT NULL COMMENT &apos;上传月份&apos;,</div><div class="line">  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT &apos;上传时间&apos;,</div><div class="line">  PRIMARY KEY (`id`),</div><div class="line">  KEY `year` (`year`) USING BTREE,</div><div class="line">  KEY `month` (`month`) USING BTREE</div><div class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="图片上传函数参数"><a href="#图片上传函数参数" class="headerlink" title="图片上传函数参数"></a>图片上传函数参数</h5><ul>
+<li>$name 表单字段的名称，同一页面不能为空</li>
+<li>$value 表单input值</li>
+<li>$default 默认显示的缩略图</li>
+<li><p>$options 图片上传配置信息</p>
+</li>
+<li><p>单图上传</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tpl_form_field_image($name, $value = ‘’, $default = ‘’, $options = array())</div></pre></td></tr></table></figure>
+</li>
+<li><p>多图上传</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tpl_form_field_multi_audio($name, $value = array(), $options = array())</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>音频上传、视频上传类似，具体参考<code>/Application/Common/Common/function.php</code></p>
+<h4 id="2-JSDK使用方法"><a href="#2-JSDK使用方法" class="headerlink" title="2. JSDK使用方法"></a>2. JSDK使用方法</h4><ul>
+<li>jsdk访问地址 <code>yourpath/webTest/index.html</code> </li>
+<li>只需要把里面的webTest目录文件取出来就行。</li>
+<li><p>修改配置<code>webTest/assets/js/EasyUpload.js</code>,如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//项目url地址</div><div class="line">var app_path = &apos;http://xxx&apos;;</div><div class="line">//定义路由</div><div class="line">var appConfigPath = &#123;</div><div class="line">    //上传地址</div><div class="line">    uploadPath:app_path+&quot;index.php/home/index/upload&quot;,</div><div class="line">    //历史图片</div><div class="line">    imgList:app_path+&quot;index.php/home/index/imageList&quot;,</div><div class="line">    //展示远程图片地址</div><div class="line">    fetchImage:app_path+&quot;index.php/home/index/fetch&quot;,</div><div class="line">    //历史视频</div><div class="line">    vedioList:app_path+&quot;index.php/home/index/videoList&quot;,</div><div class="line">    //历史音频</div><div class="line">    audioList:app_path+&quot;index.php/home/index/audioList&quot;,</div><div class="line">    deleteFile:app_path+&quot;index.php/home/index/deleteFile&quot;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>调用方式，参照<code>webTest/index.html</code>引入css和js文件，再调用需要上传的方法，方法里的参数有 domName 节点名、defaultValue 默认值、options 配置 。具体参数使用方式查看<code>webTest/assets/js/EasyUpload.js</code> 如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">   $(function () &#123;</div><div class="line">       //图片上传</div><div class="line">       EasyUpload.loadFiledImage(&quot;#filedImage&quot;);</div><div class="line">       //编辑器</div><div class="line">       EasyUpload.loadUeditor(&quot;#content&quot;);</div><div class="line">       //音频上传</div><div class="line">       EasyUpload.loadAudio(&apos;#audios&apos;);</div><div class="line">       //视频上传</div><div class="line">       EasyUpload.loadVideo(&apos;#movies&apos;);</div><div class="line">   &#125;);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>文件上传返回格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">&quot;ext&quot;: &quot;gif&quot;,</div><div class="line">&quot;name&quot;: &quot;jdfw.gif&quot;,</div><div class="line">&quot;attachment&quot;: &quot;/Uploads/image/2017-09-06/59afb44c54ef4.gif&quot;,</div><div class="line">&quot;filename&quot;: &quot;/Uploads/image/2017-09-06/59afb44c54ef4.gif&quot;,</div><div class="line">&quot;url&quot;: &quot;http://10.10.12.232:99/Uploads/image/2017-09-06/59afb44c54ef4.gif&quot;,</div><div class="line">&quot;is_image&quot;: 1,</div><div class="line">&quot;filesize&quot;: 1280038,</div><div class="line">&quot;height&quot;: 80,</div><div class="line">&quot;widch&quot;: 80</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>历史记录返回格式(items的key为id的值)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">&quot;message&quot;: &#123;</div><div class="line">&quot;message&quot;: &#123;</div><div class="line">&quot;items&quot;: &#123;</div><div class="line">&quot;1&quot;: &#123;</div><div class="line">&quot;id&quot;: &quot;1&quot;,</div><div class="line">&quot;filename&quot;: &quot;cms结构_v1.png&quot;,</div><div class="line">&quot;attachment&quot;: &quot;/Uploads/image/2017-09-06/59afb1fbeeaf1.png&quot;,</div><div class="line">&quot;url&quot;: &quot;/Uploads/image/2017-09-06/59afb1fbeeaf1.png&quot;,</div><div class="line">&quot;type&quot;: &quot;1&quot;,</div><div class="line">&quot;createtime&quot;: &quot;2017-09-06&quot;</div><div class="line">&#125;</div><div class="line">&#125;,</div><div class="line">&quot;page&quot;: &quot;&quot;</div><div class="line">&#125;,</div><div class="line">&quot;error&quot;: 0</div><div class="line">&#125;,</div><div class="line">&quot;redirect&quot;: &quot;&quot;,</div><div class="line">&quot;type&quot;: &quot;ajax&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h4><p><a href="https://github.com/wangwenfan/EasyUpload" target="_blank" rel="external">https://github.com/wangwenfan/EasyUpload</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/911605072198855007.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/51608332454170581.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work-web-php/">work web php</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.wangwenfan.com/posts/uncategorized/2017-09-06-用WebUpload实现简单文件上传功能.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/posts/uncategorized/2017-09-27-javascript-分片上传文件demo.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          javascript 分片上传文件demo
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/uncategorized/2017-07-21-PHP观察者模式.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">PHP观察者模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="用WebUpload实现简单文件上传功能" data-title="用WebUpload实现简单文件上传功能" data-url="http://www.wangwenfan.com/posts/uncategorized/2017-09-06-用WebUpload实现简单文件上传功能.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wangwenfan"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 王文凡
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">phpcms work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php 设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php javascript work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work web php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">life</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work javascript</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">坐标&lt;br&gt;成都&lt;br&gt;PHP码农</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

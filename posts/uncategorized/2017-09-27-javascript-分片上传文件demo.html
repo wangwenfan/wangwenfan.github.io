@@ -6,21 +6,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.wangwenfan.com">
-  <title>迟来的的2016年终总结 | 凡夫俗子</title>
+  <title>javascript 分片上传文件demo | 凡夫俗子</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今年的年终总结本来会迟到的，前两天电脑坏了，还好今天修好了。刚刚看了时间的朋友跨年演讲，里面说到我们在消费时不光要考虑金钱成本，更重要的是时间成本。回顾2016的点滴，喜忧参半，没有什么特别突出的地方。翻出2015年的年终总结，对照当时给自己制定的目标，大部分还是完成了，有一些还在进行中。有几个还没完成的，没有完成的慢慢的就被淘汰了，应该不是自己真正想要的东西，可能是所谓的伪目标吧。
-去年告诉自己">
+  <meta name="description" content="文件上传是一个使用频率非常高的一个功能。但是项目中总觉得它不够完善。从而暴露出一些细节问题。于是动手写一个分片上传的demo分享出来供大家参考。
+
+
+实现方式
+JavaScript有个slice函数可以截取文件指定片段大小,然后把文件写入FormData，与普通的 Ajax 相比，使用 FormData 的最大优点就是我们可以异步上传二进制文件。123456789$.ajax(&amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="迟来的的2016年终总结">
-<meta property="og:url" content="http://www.wangwenfan.com/2017/01/04/迟来的的2016年终总结/index.html">
+<meta property="og:title" content="javascript 分片上传文件demo">
+<meta property="og:url" content="http://www.wangwenfan.com/posts/uncategorized/2017-09-27-javascript-分片上传文件demo.html">
 <meta property="og:site_name" content="凡夫俗子">
-<meta property="og:description" content="今年的年终总结本来会迟到的，前两天电脑坏了，还好今天修好了。刚刚看了时间的朋友跨年演讲，里面说到我们在消费时不光要考虑金钱成本，更重要的是时间成本。回顾2016的点滴，喜忧参半，没有什么特别突出的地方。翻出2015年的年终总结，对照当时给自己制定的目标，大部分还是完成了，有一些还在进行中。有几个还没完成的，没有完成的慢慢的就被淘汰了，应该不是自己真正想要的东西，可能是所谓的伪目标吧。
-去年告诉自己">
-<meta property="og:updated_time" content="2017-02-04T03:17:33.938Z">
+<meta property="og:description" content="文件上传是一个使用频率非常高的一个功能。但是项目中总觉得它不够完善。从而暴露出一些细节问题。于是动手写一个分片上传的demo分享出来供大家参考。
+
+
+实现方式
+JavaScript有个slice函数可以截取文件指定片段大小,然后把文件写入FormData，与普通的 Ajax 相比，使用 FormData 的最大优点就是我们可以异步上传二进制文件。123456789$.ajax(&amp;#123;">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/98e19e2dgy1fjy8q0y79xg20i506pwkg.gif">
+<meta property="og:updated_time" content="2017-09-27T10:02:29.931Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="迟来的的2016年终总结">
-<meta name="twitter:description" content="今年的年终总结本来会迟到的，前两天电脑坏了，还好今天修好了。刚刚看了时间的朋友跨年演讲，里面说到我们在消费时不光要考虑金钱成本，更重要的是时间成本。回顾2016的点滴，喜忧参半，没有什么特别突出的地方。翻出2015年的年终总结，对照当时给自己制定的目标，大部分还是完成了，有一些还在进行中。有几个还没完成的，没有完成的慢慢的就被淘汰了，应该不是自己真正想要的东西，可能是所谓的伪目标吧。
-去年告诉自己">
+<meta name="twitter:title" content="javascript 分片上传文件demo">
+<meta name="twitter:description" content="文件上传是一个使用频率非常高的一个功能。但是项目中总觉得它不够完善。从而暴露出一些细节问题。于是动手写一个分片上传的demo分享出来供大家参考。
+
+
+实现方式
+JavaScript有个slice函数可以截取文件指定片段大小,然后把文件写入FormData，与普通的 Ajax 相比，使用 FormData 的最大优点就是我们可以异步上传二进制文件。123456789$.ajax(&amp;#123;">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/98e19e2dgy1fjy8q0y79xg20i506pwkg.gif">
   
     <link rel="alternative" href="/atom.xml" title="凡夫俗子" type="application/atom+xml">
   
@@ -150,30 +161,46 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-迟来的的2016年终总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-javascript-分片上传文件demo" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      迟来的的2016年终总结
+      javascript 分片上传文件demo
     </h1>
   
 
-        <a href="/2017/01/04/迟来的的2016年终总结/" class="archive-article-date">
-  	<time datetime="2017-01-04T03:12:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-04</time>
+        <a href="/posts/uncategorized/2017-09-27-javascript-分片上传文件demo.html" class="archive-article-date">
+  	<time datetime="2017-09-27T10:01:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-27</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今年的年终总结本来会迟到的，前两天电脑坏了，还好今天修好了。刚刚看了时间的朋友跨年演讲，里面说到我们在消费时不光要考虑金钱成本，更重要的是时间成本。回顾2016的点滴，喜忧参半，没有什么特别突出的地方。翻出2015年的年终总结，对照当时给自己制定的目标，大部分还是完成了，有一些还在进行中。有几个还没完成的，没有完成的慢慢的就被淘汰了，应该不是自己真正想要的东西，可能是所谓的伪目标吧。</p>
-<p>去年告诉自己会跳一次槽，工资涨一点，今年反而跳了两次，年初一次，年尾一次，薪水也超出了自己的预期。还有每个月看一本书，每周看一部电影。由于现在是一名程序员，看技术方面的书籍要多一点，大概看了有四五本的样子。电影从国庆过后就看得比较少了，上半年基本还能保持。而且对美剧产生了兴趣，看了有两三部的样子。专业技能在利用业余时间多多少少有进步了一点，学会了git和svn，并试着用它们管理代码，到后面习惯掌握它们。liunx系统的继续学习，个人搭建公司服务器，使用的centos，自己电脑安装ubuntu使用，基本能达到熟练的效果。在上一个公司对微信开发这一块用得比较多，可以说扩宽了自己的知识面和短板吧。后面自己又和朋友合伙购买了vps，一方面用来科学上网，另一方面当作一个测试服务器。总体来说，2016年自己在工作上有进步，但不是特别大，有一点令自己满意的就是，大的方向是有了，不再像以前那么迷茫了。因为，没有方向，光走是没有意义的。在接下来的2017年需要好好管理自己的时间，技术上的深度和广度都还不够，感觉自己离专业两个字还有很大的差距。应该在数据库、PHP高级技术、linux、JavaScript和css这几方面提升一下。首先得认认真真的把之前买的《JavaScript权威指南》看一篇吧。然后继续坚持写技术博客，坚持阅读，养成一个良好的阅读习惯和保持一个阅读量，先计划一个月一本书吧。希望在写2017年的年终总结的时候能列出这12本书的书单并全部阅读过。</p>
-<p>经过一年多的努力，最值得高兴的是各种款也差不多要还完了，预料之中的话下个月的完了。而且从2017起开始记账了，继续使用了以前没坚持下来的随手记。因为现在还是在财富积累的初期阶段，要懂得开源节流。虽然谈不上理财，但是一方面可以养成一个花钱用钱的好习惯，另一方面可以总结出每个月的钱花在哪，有些东西买了到底是不是自己真正想要的。这样坚持记一年，希望在下一次的年终总结中可以晒出一年的账单。</p>
-<p>生活方面，这一年回家的次数变多了，这么几年了，今年应该是陪伴家人时间最多的一年吧。情侣之间虽然偶尔也有争吵，有时也会冷战和赌气。但放眼望去，一起走过来的这两三百天时间。其实大家都进步了，可能不够想象中的完美。每次看到她都感觉变成熟了进步了，其实我真的很 开心。至于爱不爱，其实真的没怀疑过。希望自己在2017能改掉一些固执的牛脾气。多用有温度的话语去感染别人。哪怕自己是对的。感情和家庭像工作一样需要用心去经营。</p>
-<p>嗯！就这么多，提高自己的专业技术能力，养成阅读的习惯，坚持写博客，坚持记账，多陪伴家人，脾气好一点，用心去热爱生活，虽然生活是那么现实。多挣钱，让自己变得更好，把账单、书单、爱情都晒在2017的总结里。</p>
-<p>  <strong>2016年12月31日</strong></p>
+        <blockquote>
+<p>文件上传是一个使用频率非常高的一个功能。但是项目中总觉得它不够完善。从而暴露出一些细节问题。于是动手写一个分片上传的demo分享出来供大家参考。</p>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/98e19e2dgy1fjy8q0y79xg20i506pwkg.gif" alt=""></p>
+<h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h4><ul>
+<li><code>JavaScript</code>有个<code>slice</code>函数可以截取文件指定片段大小,然后把文件写入<code>FormData</code>，与普通的 <code>Ajax</code> 相比，使用 <code>FormData</code> 的最大优点就是我们可以异步上传二进制文件。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">'/upload'</span>,</div><div class="line">    <span class="attr">type</span>: <span class="string">'POST'</span>,</div><div class="line">    <span class="attr">cache</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">data</span>: FormData, </div><div class="line">    <span class="attr">processData</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">contentType</span>: <span class="literal">false</span> </div><div class="line">&#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">&#125;).fail(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>processData</code>设置为false。因为<code>data</code>值是<code>FormData</code>对象，不需要对数据做处理。<br><code>contentType</code>设置为<code>false</code>。因为是由<code>&lt;form&gt;</code>表单构造的<code>FormData</code>对象，且已经声明了属性<code>enctype=&quot;multipart/form-data&quot;</code>，所以这里设置为<code>false</code>。</p>
+</blockquote>
+<ul>
+<li>上传过程中把分片信息存储到<code>LocalStorage</code>。还有一种方式是，上传时到服务器去看有没有这个文件，再取回大小。根据这个大小找到当前未上传完的文件的起始位置。当前demo主要用第一种方式实现。</li>
+<li>服务端用<code>PHP</code>来实现。php的<code>file_put_contents()</code>函数可以追加写入文件。第一个参数为写入路径，第二个为文件，第三个参数<code>FILE_APPEND</code>可以追加写入。具体使用查看：<a href="http://php.net/manual/zh/function.file-put-contents.php" target="_blank" rel="external">http://php.net/manual/zh/function.file-put-contents.php</a></li>
+</ul>
+<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">|-breakpoint</div><div class="line">|_____static</div><div class="line">|      |___common.js 上传逻辑</div><div class="line">|      |__style.css 模板基本样式</div><div class="line">|_____upload 附件目录</div><div class="line">|</div><div class="line">|_____demo.html 模板</div><div class="line">|</div><div class="line">|_____fileTest.php 服务端文件</div></pre></td></tr></table></figure>
+<h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><ul>
+<li>下载或clone下来，访问<code>/demo.html</code>即可。</li>
+<li>初始化，commo.js里已有。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//初始化</span></div><div class="line">UP.__init(&#123;</div><div class="line">    <span class="attr">myFile</span>: <span class="string">"#myFile"</span>, <span class="comment">//fileinput节点</span></div><div class="line">    ServerUrl:<span class="string">"/fileTest.php"</span>,<span class="comment">//服务器地址</span></div><div class="line">    eachSize:<span class="number">1024</span> <span class="comment">//分片大小</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h4><p><a href="https://github.com/wangwenfan/breakpoint" target="_blank" rel="external">https://github.com/wangwenfan/breakpoint</a></p>
 
       
 
@@ -213,6 +240,11 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php-javascript-work/">php javascript work</a></li></ul>
+	</div>
+
       
 
       
@@ -263,7 +295,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.wangwenfan.com/2017/01/04/迟来的的2016年终总结/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.wangwenfan.com/posts/uncategorized/2017-09-27-javascript-分片上传文件demo.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -277,9 +309,18 @@
   
 <nav id="article-nav">
   
+    <a href="/posts/uncategorized/2017-09-28-PHP7新特性总结.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          PHP7新特性总结
+        
+      </div>
+    </a>
   
-    <a href="/2017/01/04/tp5使用PHPexcel导出文件/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">tp5使用PHPexcel导出文件</div>
+  
+    <a href="/posts/uncategorized/2017-09-06-用WebUpload实现简单文件上传功能.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用WebUpload实现简单文件上传功能</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -292,7 +333,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="迟来的的2016年终总结" data-title="迟来的的2016年终总结" data-url="http://www.wangwenfan.com/2017/01/04/迟来的的2016年终总结/"></div>
+	<div class="ds-thread" data-thread-key="javascript-分片上传文件demo" data-title="javascript 分片上传文件demo" data-url="http://www.wangwenfan.com/posts/uncategorized/2017-09-27-javascript-分片上传文件demo.html"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -373,6 +414,42 @@
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">phpcms work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php 设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php javascript work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work web php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">life</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work javascript</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

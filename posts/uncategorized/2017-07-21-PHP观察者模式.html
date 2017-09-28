@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://www.wangwenfan.com">
+  <title>PHP观察者模式 | 凡夫俗子</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="观察者模式(Observer),当一个对象的状态发生改变时，依赖他的对象会全部收到通知，并自动更新。一个事件发生后,要执行一连串更新操作.传统的编程方式,就是在事件的代码之后直接加入处理逻辑,当更新得逻辑增多之后,代码会变得难以维护.这种方式是耦合的,侵入式的,增加新的逻辑需要改变事件主题的代码观察者模式实现了低耦合,非侵入式的通知与更新机制。
+
+1. 传统的使用方式12345678910111">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP观察者模式">
+<meta property="og:url" content="http://www.wangwenfan.com/posts/uncategorized/2017-07-21-PHP观察者模式.html">
+<meta property="og:site_name" content="凡夫俗子">
+<meta property="og:description" content="观察者模式(Observer),当一个对象的状态发生改变时，依赖他的对象会全部收到通知，并自动更新。一个事件发生后,要执行一连串更新操作.传统的编程方式,就是在事件的代码之后直接加入处理逻辑,当更新得逻辑增多之后,代码会变得难以维护.这种方式是耦合的,侵入式的,增加新的逻辑需要改变事件主题的代码观察者模式实现了低耦合,非侵入式的通知与更新机制。
+
+1. 传统的使用方式12345678910111">
+<meta property="og:updated_time" content="2017-07-21T08:36:56.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP观察者模式">
+<meta name="twitter:description" content="观察者模式(Observer),当一个对象的状态发生改变时，依赖他的对象会全部收到通知，并自动更新。一个事件发生后,要执行一连串更新操作.传统的编程方式,就是在事件的代码之后直接加入处理逻辑,当更新得逻辑增多之后,代码会变得难以维护.这种方式是耦合的,侵入式的,增加新的逻辑需要改变事件主题的代码观察者模式实现了低耦合,非侵入式的通知与更新机制。
+
+1. 传统的使用方式12345678910111">
+  
+    <link rel="alternative" href="/atom.xml" title="凡夫俗子" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">王文凡</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">凡夫俗子博客</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wangwenfan" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/2564922925/profile?topnav=1&wvr=6&is_all=1" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/wang-wen-fan-73/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">王文凡</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">王文凡</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">凡夫俗子博客</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔/">随笔</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wangwenfan" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2564922925/profile?topnav=1&wvr=6&is_all=1" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/wang-wen-fan-73/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-PHP观察者模式" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP观察者模式
+    </h1>
+  
+
+        <a href="/posts/uncategorized/2017-07-21-PHP观察者模式.html" class="archive-article-date">
+  	<time datetime="2017-07-21T08:36:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-21</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>观察者模式(Observer),当一个对象的状态发生改变时，依赖他的对象会全部收到通知，并自动更新。一个事件发生后,要执行一连串更新操作.传统的编程方式,就是在事件的代码之后直接加入处理逻辑,当更新得逻辑增多之后,代码会变得难以维护.这种方式是耦合的,侵入式的,增加新的逻辑需要改变事件主题的代码观察者模式实现了低耦合,非侵入式的通知与更新机制。</p>
+</blockquote>
+<h3 id="1-传统的使用方式"><a href="#1-传统的使用方式" class="headerlink" title="1. 传统的使用方式"></a>1. 传统的使用方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class Order</div><div class="line">&#123;</div><div class="line">    // 订单状态</div><div class="line">    private $state = 0;</div><div class="line"></div><div class="line">    // 订单状态有变化时发送通知</div><div class="line">    public function addOrder()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;state = 1;</div><div class="line">        // 发送邮件</div><div class="line">        Email::update($this-&gt;state);</div><div class="line">        // 短信通知</div><div class="line">        Message::update($this-&gt;state);</div><div class="line">        // 记录日志</div><div class="line">        Log::update();</div><div class="line">        // 其他更多通知</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">$order = new Order();</div><div class="line">$order-&gt;addOrder();</div></pre></td></tr></table></figure>
+<ul>
+<li>就会同时产生三个通知：发送邮件、发送短信和记录日志。在系统小的时候，这是非常快捷有效的方式。可是，当系统变大的时候，这种方法马上面临难以扩展的问题，并且容易出错。</li>
+<li>如果订单不需要某种通知，比如不需要记录日志，则必须修改Order类，做状态的判断；</li>
+<li>如果再加一种通知方式，如系统消息通知，则除了增加新类，同时还需要修改Order类和客户端。</li>
+<li>这两条都不符合面向对象中的开闭原则，会让系统越来越难维护。</li>
+</ul>
+<h3 id="2-使用观察者模式来实现这个功能"><a href="#2-使用观察者模式来实现这个功能" class="headerlink" title="2. 使用观察者模式来实现这个功能"></a>2. 使用观察者模式来实现这个功能</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">/**</div><div class="line"> * 被观察者接口</div><div class="line"> */</div><div class="line">interface Observable</div><div class="line">&#123;</div><div class="line">    // 添加/注册观察者</div><div class="line">    public function attach(Observer $observer);</div><div class="line">    // 删除观察者</div><div class="line">    public function detach(Observer $observer);</div><div class="line">    // 触发通知</div><div class="line">    public function notify();</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 观察者接口</div><div class="line"> */</div><div class="line">interface Observer</div><div class="line">&#123;</div><div class="line">    //收到通知处理方法</div><div class="line">    public function update(Observable $observable);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 被观察者</div><div class="line"> * 职责：添加观察者到$observers属性中，</div><div class="line"> * 有变动时通过notify()方法运行通知</div><div class="line"> */</div><div class="line">class Order implements Observable</div><div class="line">&#123;</div><div class="line">    // 保存观察者</div><div class="line">    private $observers = array();</div><div class="line">    // 订单状态</div><div class="line">    private $state = 0;</div><div class="line"></div><div class="line">    // 添加（注册）观察者</div><div class="line">    public function attach(Observer $observer)</div><div class="line">    &#123;</div><div class="line">        $key = array_search($observer, $this-&gt;observers);</div><div class="line">        if ($key === false) &#123;</div><div class="line">            $this-&gt;observers[] = $observer;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 移除观察者</div><div class="line">    public function detach(Observer $observer)</div><div class="line">    &#123;</div><div class="line">        $key = array_search($observer, $this-&gt;observers);</div><div class="line">        if ($key !== false) &#123;</div><div class="line">            unset($this-&gt;observers[$key]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 遍历调用观察者的update()方法进行通知，不关心其具体实现方式</div><div class="line">    public function notify()</div><div class="line">    &#123;</div><div class="line">        foreach ($this-&gt;observers as $observer) &#123;</div><div class="line">            // 把本类对象传给观察者，以便观察者获取当前类对象的信息</div><div class="line">            $observer-&gt;update($this);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 订单状态有变化时发送通知</div><div class="line">    public function addOrder()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;state = 1;</div><div class="line">        $this-&gt;notify();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 获取提供给观察者的状态</div><div class="line">    public function getState()</div><div class="line">    &#123;</div><div class="line">        return $this-&gt;state;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"> * 观察者发送邮件</div><div class="line"> */</div><div class="line">class Email implements Observer</div><div class="line">&#123;</div><div class="line">    public function update(Observable $observable)</div><div class="line">    &#123;</div><div class="line">        $state = $observable-&gt;getState();</div><div class="line">        if($state)&#123;</div><div class="line">            echo &quot;发送邮件：您已成功下单&lt;br&gt;&quot;;</div><div class="line">        &#125;else&#123;</div><div class="line">            echo &quot;发送邮件：错误;下单失败&lt;br&gt;&quot;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 观察者发送短信</div><div class="line"> */</div><div class="line">class Message implements Observer</div><div class="line">&#123;</div><div class="line">    public function update(Observable $observable)</div><div class="line">    &#123;</div><div class="line">        $state = $observable-&gt;getState();</div><div class="line">        if($state)&#123;</div><div class="line">            echo &quot;发送短信：你已下单成功&lt;br&gt;&quot;;</div><div class="line">        &#125;else&#123;</div><div class="line">            echo &quot;发送短信：错误；下单失败&lt;br&gt;&quot;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 客户端使用</div><div class="line"> */</div><div class="line">$email = new Email;</div><div class="line">$message = new Message;</div><div class="line">//创建订单</div><div class="line">$order = new Order;</div><div class="line">$order-&gt;attach($email);</div><div class="line">$order-&gt;attach($message);</div><div class="line">$order-&gt;addOrder();</div><div class="line">// 删除记录日志观察者</div><div class="line">$order-&gt;detach($email);</div><div class="line">$order-&gt;detach($message);</div></pre></td></tr></table></figure>
+<ul>
+<li>如果我需要新增一个观察者，只需要添加观察者本身的类，再实现update方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 观察者：系统消息</div><div class="line"> */</div><div class="line">class Alert implements Observer</div><div class="line">&#123;</div><div class="line">    public function update(Observable $observable)</div><div class="line">    &#123;</div><div class="line">        echo &apos;系统消息：您的订单有更新了~~~&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">// 创建“系统消息”观察者</div><div class="line">$alert = new Alert();</div><div class="line">// 注册观察者到订单对象中</div><div class="line">$order-&gt;attach($alert);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h3><ul>
+<li><p>在观察者模式中，被观察者完全不需要关心观察者，在自身状态有变化是，遍历执行观察者update()方法即完成通知。</p>
+</li>
+<li><p>在观察者模式中，被观察者通过添加attach()方法，提供给观察者注册，使自己变得可见。</p>
+</li>
+<li><p>当被观察者改变时，给注册的观察者发送通知。至于观察者如何处理通知，被观察者不需要关心。</p>
+</li>
+<li><p>这是一种良好的设计，对象之间不必相互理解，同样能够相互通信。</p>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/911605072198855007.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/51608332454170581.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work-php-设计模式/">work php 设计模式</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.wangwenfan.com/posts/uncategorized/2017-07-21-PHP观察者模式.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/posts/uncategorized/2017-09-06-用WebUpload实现简单文件上传功能.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          用WebUpload实现简单文件上传功能
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/uncategorized/2017-07-17-自己写PHP框架需要哪些知识.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">自己写PHP框架需要哪些知识</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="PHP观察者模式" data-title="PHP观察者模式" data-url="http://www.wangwenfan.com/posts/uncategorized/2017-07-21-PHP观察者模式.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wangwenfan"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 王文凡
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">phpcms work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php 设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php javascript work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work web php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">life</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work javascript</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">坐标&lt;br&gt;成都&lt;br&gt;PHP码农</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

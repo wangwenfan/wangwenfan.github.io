@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://www.wangwenfan.com">
+  <title>利用crontab和Shell定时备份数据库和文件 | 凡夫俗子</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前两天给客户搭建了一台Linux服务器给做了一个定时备份数据库和网站目录文件夹。下面记录下搭建过程。
+
+1、整个执行过程主要分两步
+编写Shell脚本处理整个过程，包括文件导出、打包、删除等。
+用crontab定时执行这个脚本。2、shell脚本编写
+Shell可以参见 Shell脚本编程30分钟入门。
+首先我们写一个导出mysql数据库的脚本，见下面代码。1234567891011121314">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用crontab和Shell定时备份数据库和文件">
+<meta property="og:url" content="http://www.wangwenfan.com/posts/uncategorized/2017-02-22-利用crontab和Shell定时备份数据库和文件.html">
+<meta property="og:site_name" content="凡夫俗子">
+<meta property="og:description" content="前两天给客户搭建了一台Linux服务器给做了一个定时备份数据库和网站目录文件夹。下面记录下搭建过程。
+
+1、整个执行过程主要分两步
+编写Shell脚本处理整个过程，包括文件导出、打包、删除等。
+用crontab定时执行这个脚本。2、shell脚本编写
+Shell可以参见 Shell脚本编程30分钟入门。
+首先我们写一个导出mysql数据库的脚本，见下面代码。1234567891011121314">
+<meta property="og:image" content="https://wangwenfan.top/images/20170222175648.png">
+<meta property="og:updated_time" content="2017-05-27T09:06:11.568Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用crontab和Shell定时备份数据库和文件">
+<meta name="twitter:description" content="前两天给客户搭建了一台Linux服务器给做了一个定时备份数据库和网站目录文件夹。下面记录下搭建过程。
+
+1、整个执行过程主要分两步
+编写Shell脚本处理整个过程，包括文件导出、打包、删除等。
+用crontab定时执行这个脚本。2、shell脚本编写
+Shell可以参见 Shell脚本编程30分钟入门。
+首先我们写一个导出mysql数据库的脚本，见下面代码。1234567891011121314">
+<meta name="twitter:image" content="https://wangwenfan.top/images/20170222175648.png">
+  
+    <link rel="alternative" href="/atom.xml" title="凡夫俗子" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">王文凡</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">凡夫俗子博客</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wangwenfan" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/2564922925/profile?topnav=1&wvr=6&is_all=1" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/wang-wen-fan-73/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">王文凡</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">王文凡</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">凡夫俗子博客</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔/">随笔</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wangwenfan" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2564922925/profile?topnav=1&wvr=6&is_all=1" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/wang-wen-fan-73/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-利用crontab和Shell定时备份数据库和文件" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用crontab和Shell定时备份数据库和文件
+    </h1>
+  
+
+        <a href="/posts/uncategorized/2017-02-22-利用crontab和Shell定时备份数据库和文件.html" class="archive-article-date">
+  	<time datetime="2017-02-22T10:03:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-22</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>前两天给客户搭建了一台Linux服务器给做了一个定时备份数据库和网站目录文件夹。下面记录下搭建过程。</p>
+</blockquote>
+<h5 id="1、整个执行过程主要分两步"><a href="#1、整个执行过程主要分两步" class="headerlink" title="1、整个执行过程主要分两步"></a>1、整个执行过程主要分两步</h5><ul>
+<li>编写Shell脚本处理整个过程，包括文件导出、打包、删除等。</li>
+<li>用crontab定时执行这个脚本。<h5 id="2、shell脚本编写"><a href="#2、shell脚本编写" class="headerlink" title="2、shell脚本编写"></a>2、shell脚本编写</h5></li>
+<li>Shell可以参见 <a href="https://github.com/qinjx/30min_guides/blob/master/shell.md" target="_blank" rel="external">Shell脚本编程30分钟入门</a>。</li>
+<li>首先我们写一个导出mysql数据库的脚本，见下面代码。<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#备份数据库</span></div><div class="line"><span class="comment">#Author : wangwenfan</span></div><div class="line"><span class="comment">#Date : 2017-02-21</span></div><div class="line"><span class="comment">#配置参数</span></div><div class="line">USER=root <span class="comment">#数据库用户名</span></div><div class="line">PASSWORD=wangwen123 <span class="comment">#数据库用户密码</span></div><div class="line">DATABASE=<span class="built_in">test</span> <span class="comment">#数据库名称</span></div><div class="line">WEBMASTER=787802868@qq.com <span class="comment">#管理员邮箱地址，用以发送备份失败消息提醒</span></div><div class="line">BACKUP_DIR=/home/wangwenfan/topons/ <span class="comment">#备份文件存储路径</span></div><div class="line">LOGFILE=/home/wangwenfan/topons/data_backup.log <span class="comment">#日记文件路径</span></div><div class="line">DATE=`date <span class="string">'+%Y%m%d'</span> ` <span class="comment">#日期格式（作为文件名）</span></div><div class="line">AGODATE=`date <span class="_">-d</span> <span class="string">'1 days ago'</span> +%Y%m%d` <span class="comment">#前一天</span></div><div class="line">DUMPFILE=<span class="variable">$DATE</span>.sql <span class="comment">#备份文件名</span></div><div class="line">ARCHIVE=<span class="variable">$DATE</span>.sql.tgz <span class="comment">#压缩文件名</span></div><div class="line">OPTIONS=<span class="string">"-u<span class="variable">$USER</span> -p<span class="variable">$PASSWORD</span> <span class="variable">$DATABASE</span>"</span> <span class="comment">#mysqldump 参数 详情见帮助 mysqldump －help</span></div><div class="line"><span class="comment">#判断备份文件存储目录是否存在，否则创建该目录</span></div><div class="line"><span class="keyword">if</span> [ ! <span class="_">-d</span> <span class="variable">$BACKUP_DIR</span> ] ;</div><div class="line"><span class="keyword">then</span></div><div class="line">mkdir -p <span class="string">"<span class="variable">$BACKUP_DIR</span>"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">#开始备份之前，将备份信息头写入日记文件</span></div><div class="line"><span class="built_in">echo</span> <span class="string">" "</span> &gt;&gt; <span class="variable">$LOGFILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">" "</span> &gt;&gt; <span class="variable">$LOGFILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"———————————————–"</span> &gt;&gt; <span class="variable">$LOGFILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"BACKUP DATE:"</span> $(date +<span class="string">"%y-%m-%d %H:%M:%S"</span>) &gt;&gt; <span class="variable">$LOGFILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"———————————————– "</span> &gt;&gt; <span class="variable">$LOGFILE</span></div><div class="line"><span class="comment">#切换至备份目录</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$BACKUP_DIR</span></div><div class="line"><span class="comment">#使用mysqldump 命令备份制定数据库，并以格式化的时间戳命名备份文件</span></div><div class="line">mysqldump <span class="variable">$OPTIONS</span> &gt; <span class="variable">$DUMPFILE</span></div><div class="line"><span class="comment">#判断数据库备份是否成功</span></div><div class="line"><span class="keyword">if</span> [[ <span class="_">-f</span> <span class="variable">$DUMPFILE</span> ]]; <span class="keyword">then</span></div><div class="line"><span class="comment">#创建备份文件的压缩包</span></div><div class="line">tar czvf <span class="variable">$ARCHIVE</span> <span class="variable">$DUMPFILE</span> &gt;&gt; <span class="variable">$LOGFILE</span> 2&gt;&amp;1</div><div class="line"><span class="comment">#输入备份成功的消息到日记文件</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"[<span class="variable">$ARCHIVE</span>] Backup Successful!"</span> &gt;&gt; <span class="variable">$LOGFILE</span></div><div class="line"><span class="comment">#删除原始备份文件，只需保 留数据库备份文件的压缩包即可</span></div><div class="line">rm <span class="_">-f</span> <span class="variable">$DUMPFILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"删除备份原文件成功!"</span> &gt;&gt; <span class="variable">$LOGFILE</span></div><div class="line"><span class="keyword">if</span> [[ <span class="_">-f</span> <span class="variable">$AGODATE</span>.sql.tgz ]]; <span class="keyword">then</span></div><div class="line">   <span class="comment">#statements</span></div><div class="line">   rm <span class="_">-f</span> <span class="variable">$AGODATE</span>.sql.tgz</div><div class="line">   <span class="built_in">echo</span> <span class="string">"删除前一天备份文件成功!"</span> &gt;&gt; <span class="variable">$LOGFILE</span></div><div class="line">   <span class="built_in">echo</span> <span class="string">"Database:<span class="variable">$DATABASE</span> Daily Backup Successful"</span> | mailx <span class="_">-s</span> <span class="string">"数据库备份成功"</span> <span class="variable">$WEBMASTER</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"Database Backup Fail!(备份失败)"</span> &gt;&gt; <span class="variable">$LOGFILE</span></div><div class="line"><span class="comment">#备份失败后向网站管理者发送邮件提醒，我安装的是mailx</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"Database:<span class="variable">$DATABASE</span> Daily Backup Fail"</span> | mailx <span class="_">-s</span> <span class="string">"数据库备份失败"</span> <span class="variable">$WEBMASTER</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">#输出备份过程结束的提醒消息</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"Backup Process Done(备份完成)"</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="3、-脚本中的知识点"><a href="#3、-脚本中的知识点" class="headerlink" title="3、 脚本中的知识点:"></a>3、 脚本中的知识点:</h5><ol>
+<li><strong>if的中的参数:</strong><br>-d 当文件存在并且是一个目录时返回真;<br>-f  当文件存在并且是正规文件时返回真;</li>
+<li><strong>&gt;&gt;和&gt;符号的使用:</strong><br>“&gt;&gt;” : 如果文件不存在，将创建新的文件，并将数据送至此文件；如果文件存在，则将数据添加在文件后面;<br>“&gt;” : 如果文件不存在，同上，如果文件存在，先将文件清空，然后将数据填入此文件;</li>
+<li><strong>mailx发送邮件:</strong><br> 我用的是centos，首先安装mailx <code>yum -y install mailx</code>；<br> 安装成功后设置mailx参数，编辑 /etc/mail.rc文件<code>vim /etc/mail.rc</code>;<br> 在文件的末行添加以下文字: <figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span> from=yuorname@<span class="number">139</span>.<span class="keyword">com</span>  #发送邮箱号  </div><div class="line"><span class="keyword">set</span> smtp=smtp.<span class="number">139</span>.<span class="keyword">com</span>  #邮件服务器</div><div class="line"><span class="keyword">set</span> smtp-auth-user=yourname  #邮箱用户名</div><div class="line"><span class="keyword">set</span> smtp-auth-password=yourpassword  #邮箱密码</div><div class="line"><span class="keyword">set</span> smtp-auth=login #登录方式</div><div class="line"> 添加完了后   发送邮件命令为: `<span class="keyword">echo</span> <span class="string">"邮箱内容"</span>| mailx -s <span class="string">"邮件标题"</span> 邮箱号</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><strong>删除上次备份的文件:</strong><br> 上面我设置了个<code>AGODATE=</code>date -d ‘1 days ago’ +%Y%m%d<code>#前一天</code>;如果你需要保留2天的数据，把里面的1改成2就行了，多天以此类推。<h5 id="4、-我们按照上面的方法再编写备份完整目录文件的shell，就没什么好说的了，方法同上，下面是代码。"><a href="#4、-我们按照上面的方法再编写备份完整目录文件的shell，就没什么好说的了，方法同上，下面是代码。" class="headerlink" title="4、 我们按照上面的方法再编写备份完整目录文件的shell，就没什么好说的了，方法同上，下面是代码。"></a>4、 我们按照上面的方法再编写备份完整目录文件的shell，就没什么好说的了，方法同上，下面是代码。</h5></li>
+</ol>
+<pre><code class="bash"><span class="meta">#!/bin/bash</span>
+<span class="comment">#备份www目录文件夹</span>
+<span class="comment">#Auther :wangwenfan</span>
+<span class="comment">#Date :2017-02-22</span>
+<span class="comment">#配置参数</span>
+DATA_DIR=www <span class="comment">#待备份的文件夹</span>
+BACKUP_DIR=/home/wangwenfan/topons/ <span class="comment">#备份文件路径</span>
+LOGFILE=/home/wangwenfan/topons/wwwroot_backup.log <span class="comment">#日志记录文件</span>
+WEBMASTER=787802868@qq.com <span class="comment">#管理员邮箱地址，用以发送备份失败消息提醒</span>
+DATE=`date <span class="string">'+%Y%m%d'</span> ` <span class="comment">#日期格式</span>
+F_DATE=`date <span class="string">'+%Y%m%d %H:%M:%S'</span> ` <span class="comment">#详细日期格式</span>
+AGODATE=`date <span class="_">-d</span> <span class="string">'7 days ago'</span> +%Y%m%d` <span class="comment">#上一周备份时间</span>
+BACKUP_FILE=<span class="variable">${DATA_DIR}</span><span class="variable">${DATE}</span>.tgz <span class="comment">#备份压缩文件名</span>
+<span class="comment">#进入备份文件夹</span>
+<span class="keyword">if</span> [[ ! <span class="_">-d</span> <span class="variable">$BACKUP_DIR</span> ]]; <span class="keyword">then</span>
+   mkdir -p <span class="string">"<span class="variable">$BACKUP_DIR</span>"</span>
+<span class="keyword">fi</span>
+<span class="comment">#开始备份之前将信息写入日志头部</span>
+<span class="built_in">echo</span> <span class="string">""</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+<span class="built_in">echo</span> <span class="string">""</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+<span class="built_in">echo</span> <span class="string">"-----------------"</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+<span class="built_in">echo</span> <span class="string">"BACKUPDATE: <span class="variable">$F_DATE</span> ,准备开始备份!"</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+<span class="built_in">echo</span> <span class="string">"-----------------"</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+<span class="comment">#切换至备份的目录</span>
+<span class="built_in">cd</span> <span class="variable">$BACKUP_DIR</span>
+<span class="comment">#压缩待备份的目录到该目录下</span>
+tar czvf <span class="variable">$BACKUP_FILE</span> ../../<span class="variable">${DATA_DIR}</span>
+<span class="keyword">if</span> [[ <span class="_">-f</span> <span class="variable">$BACKUP_FILE</span> ]]; <span class="keyword">then</span>
+   <span class="built_in">echo</span> <span class="string">"Backup Successful (备份文件成功)"</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+<span class="comment">#删除上次备份的文件</span>
+   <span class="keyword">if</span> [[ <span class="_">-f</span> <span class="variable">${DATA_DIR}</span><span class="variable">${AGODATE}</span>.tgz ]]; <span class="keyword">then</span>
+        rm <span class="_">-f</span> <span class="variable">${DATA_DIR}</span><span class="variable">${AGODATE}</span>.tgz
+      <span class="built_in">echo</span> <span class="string">"Delete Successful <span class="variable">${DATA_DIR}</span><span class="variable">${AGODATE}</span>.tgz (删除文件成功)"</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+      mail <span class="_">-s</span> <span class="string">"DATATIME:<span class="variable">$F_DATE</span>,<span class="variable">$DATA_DIR</span> Backup Successful  (项目文件备份成功)"</span> <span class="variable">$WEBMASTER</span>
+   <span class="keyword">fi</span>
+   <span class="comment">#备份成功发送邮件</span>
+   <span class="built_in">echo</span> <span class="string">"DATATIME:<span class="variable">$F_DATE</span>,<span class="variable">$DATA_DIR</span> Daily Backup Successful (项目文件备份成功)"</span> | mailx <span class="_">-s</span> <span class="string">"文件备份成功"</span>  <span class="variable">$WEBMASTER</span>
+   <span class="built_in">echo</span> <span class="string">"给<span class="variable">${WEBMASTER}</span>发送邮件成功"</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+<span class="keyword">else</span>
+   <span class="built_in">echo</span> <span class="string">"wwwroot Backup fail! (文件备份失败)"</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+<span class="comment">#备份失败后向网站管理者发送邮件提醒，需要mailutils或者类似终端下发送邮件工具的支持</span>
+<span class="built_in">echo</span> <span class="string">"DATATIME:<span class="variable">$F_DATE</span>,<span class="variable">$DATA_DIR</span> Daily Backup Fail (项目文件备份失败)"</span> | mailx <span class="_">-s</span> <span class="string">"文件备份失败"</span>  <span class="variable">$WEBMASTER</span>
+<span class="keyword">fi</span>
+<span class="comment">#执行完成</span>
+<span class="built_in">echo</span> <span class="string">"Script Successful!(脚本执行成功)"</span> &gt;&gt; <span class="variable">$LOGFILE</span>
+</code></pre>
+<h5 id="5、Shell写完了，我们开始设置crontab开始定时任务计划。"><a href="#5、Shell写完了，我们开始设置crontab开始定时任务计划。" class="headerlink" title="5、Shell写完了，我们开始设置crontab开始定时任务计划。"></a>5、Shell写完了，我们开始设置crontab开始定时任务计划。</h5><ul>
+<li>crontab介绍 :</li>
+</ul>
+<ol>
+<li>command 命令参数解释<br><em>　　</em>　　<em>　　</em>　　<em>　　<br>分　时　日　月　周　命令<br>第1列表示分钟1～59 每分钟用</em>或者 */1表示<br>第2列表示小时1～23（0表示0点）<br>第3列表示日期1～31<br>第4列表示月份1～12<br>第5列标识号星期0～6（0表示星期天）<br>详细使用请看<a href="http://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/crontab.html" target="_blank" rel="external">linuxtools介绍</a>，写得很详细。</li>
+<li>我们用<code>crontab -l</code>查看当前用户的crontab文件内容，如果不指定用户，则表示显示当前用户的crontab文件内容。然后用<code>crontab -e</code> 编辑crontab文件。<img src="https://wangwenfan.top/images/20170222175648.png" alt="编辑crontab"></li>
+<li>然后重启crontab就可以了，在系统中有service这个命令时：<br>service crond start //启动服务<br>service crond stop //关闭服务<br>service crond restart //重启服务</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/911605072198855007.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/51608332454170581.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.wangwenfan.com/posts/uncategorized/2017-02-22-利用crontab和Shell定时备份数据库和文件.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/posts/uncategorized/2017-02-24-Nginx配置https.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Nginx配置https
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/uncategorized/2017-01-04-迟来的的2016年终总结.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">迟来的的2016年终总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="利用crontab和Shell定时备份数据库和文件" data-title="利用crontab和Shell定时备份数据库和文件" data-url="http://www.wangwenfan.com/posts/uncategorized/2017-02-22-利用crontab和Shell定时备份数据库和文件.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wangwenfan"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 王文凡
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">phpcms work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php 设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php javascript work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work web php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">life</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work javascript</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">坐标&lt;br&gt;成都&lt;br&gt;PHP码农</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

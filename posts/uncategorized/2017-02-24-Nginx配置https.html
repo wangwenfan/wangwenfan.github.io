@@ -6,17 +6,52 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.wangwenfan.com">
-  <title>Archives: 2017/1 | 凡夫俗子</title>
+  <title>Nginx配置https | 凡夫俗子</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="王文凡的个人网站,王文凡的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="凡夫俗子">
-<meta property="og:url" content="http://www.wangwenfan.com/archives/2017/01/index.html">
+  <meta name="description" content="前端时间阿里云免费赠送了一个一年的安全证书，不要白不要干脆就把自己网站弄成https，下面说说自己的实现过程。
+
+
+首先是下载证书，我的是再阿里云里面，如果购买成功了，直接下载证书。里面会有两后缀分别为.key和.pem的个文件，如下图所示.
+
+下载页面:解压后的文件:
+
+阿里云的下载页面会有使用说明。
+
+
+先把这两个文件放到你的Nginx目录里的一个新建文件夹中，我是放到nginx/conf/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx配置https">
+<meta property="og:url" content="http://www.wangwenfan.com/posts/uncategorized/2017-02-24-Nginx配置https.html">
 <meta property="og:site_name" content="凡夫俗子">
-<meta property="og:description" content="王文凡的个人网站,王文凡的博客">
+<meta property="og:description" content="前端时间阿里云免费赠送了一个一年的安全证书，不要白不要干脆就把自己网站弄成https，下面说说自己的实现过程。
+
+
+首先是下载证书，我的是再阿里云里面，如果购买成功了，直接下载证书。里面会有两后缀分别为.key和.pem的个文件，如下图所示.
+
+下载页面:解压后的文件:
+
+阿里云的下载页面会有使用说明。
+
+
+先把这两个文件放到你的Nginx目录里的一个新建文件夹中，我是放到nginx/conf/">
+<meta property="og:image" content="https://wangwenfan.top/images/_20170224162110.png">
+<meta property="og:image" content="https://wangwenfan.top/images/_20170224162324.png">
+<meta property="og:image" content="https://wangwenfan.top/images/_20170224163739.png">
+<meta property="og:updated_time" content="2017-05-27T09:06:11.593Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="凡夫俗子">
-<meta name="twitter:description" content="王文凡的个人网站,王文凡的博客">
+<meta name="twitter:title" content="Nginx配置https">
+<meta name="twitter:description" content="前端时间阿里云免费赠送了一个一年的安全证书，不要白不要干脆就把自己网站弄成https，下面说说自己的实现过程。
+
+
+首先是下载证书，我的是再阿里云里面，如果购买成功了，直接下载证书。里面会有两后缀分别为.key和.pem的个文件，如下图所示.
+
+下载页面:解压后的文件:
+
+阿里云的下载页面会有使用说明。
+
+
+先把这两个文件放到你的Nginx目录里的一个新建文件夹中，我是放到nginx/conf/">
+<meta name="twitter:image" content="https://wangwenfan.top/images/_20170224162110.png">
   
     <link rel="alternative" href="/atom.xml" title="凡夫俗子" type="application/atom+xml">
   
@@ -146,86 +181,209 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Nginx配置https" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/uncategorized/2017-01-04-迟来的的2016年终总结.html" class="archive-article-date">
-  	<time datetime="2017-01-04T03:12:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/uncategorized/2017-01-04-迟来的的2016年终总结.html">迟来的的2016年终总结</a>
+    <h1 class="article-title" itemprop="name">
+      Nginx配置https
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/uncategorized/2017-01-04-tp5使用PHPexcel导出文件.html" class="archive-article-date">
-  	<time datetime="2017-01-04T01:37:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-04</time>
+        <a href="/posts/uncategorized/2017-02-24-Nginx配置https.html" class="archive-article-date">
+  	<time datetime="2017-02-24T08:44:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-24</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/uncategorized/2017-01-04-tp5使用PHPexcel导出文件.html">tp5使用PHPexcel导出文件</a>
-    </h1>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>前端时间阿里云免费赠送了一个一年的安全证书，不要白不要干脆就把自己网站弄成https，下面说说自己的实现过程。</p>
+</blockquote>
+<ul>
+<li>首先是下载证书，我的是再阿里云里面，如果购买成功了，直接下载证书。里面会有两后缀分别为.key和.pem的个文件，如下图所示.</li>
+</ul>
+<p>下载页面:<br><img src="https://wangwenfan.top/images/_20170224162110.png" alt="下载页面"><br>解压后的文件:<br><img src="https://wangwenfan.top/images/_20170224162324.png" alt="证书文件"></p>
+<ul>
+<li>阿里云的下载页面会有使用说明。</li>
+</ul>
+<ol>
+<li>先把这两个文件放到你的Nginx目录里的一个新建文件夹中，我是放到nginx/conf/cert/里面在。</li>
+<li><p>修改你的nginx.conf，找到你配置的那个虚拟主机修改如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen 443;</div><div class="line">    server_name 你的域名;</div><div class="line">    ssl on;</div><div class="line">    root html;</div><div class="line">    index index.html index.htm;</div><div class="line">    ssl_certificate      cert/214006921440734.pem;</div><div class="line">    ssl_certificate_key  cert/214006921440734.key;</div><div class="line">    ssl_session_timeout 5m;</div><div class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</div><div class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</div><div class="line">    ssl_prefer_server_ciphers on;</div><div class="line">    location / &#123;</div><div class="line">        root html;</div><div class="line">        index index.html index.htm;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用命令 <code>sudo nginx -t</code> 查看配置是否正确。<br><img src="https://wangwenfan.top/images/_20170224163739.png" alt="nginx -t"></p>
+</li>
+<li><p>如果一切ok的话,我们重新加载下Nginx，<code>sudo nginx reload</code>就可以使用https访问了，但是Nginx是443端口，浏览器会默认访问80端口，所有我们还要配置下80端口的重定向。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">server</div><div class="line">   &#123;</div><div class="line">        listen 80;</div><div class="line">        server_name 你的域名;</div><div class="line">        rewrite ^(.*) https://$server_name$1 permanent;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置好后再重启下Nginx就可以了。</p>
+</li>
+</ol>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/911605072198855007.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/51608332454170581.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.wangwenfan.com/posts/uncategorized/2017-02-24-Nginx配置https.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
-  
 
-    
+  
+<nav id="article-nav">
+  
+    <a href="/posts/uncategorized/2017-04-14-yii2框架学习总结(1).html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          yii2框架学习总结(1)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/uncategorized/2017-02-22-利用crontab和Shell定时备份数据库和文件.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">利用crontab和Shell定时备份数据库和文件</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Nginx配置https" data-title="Nginx配置https" data-url="http://www.wangwenfan.com/posts/uncategorized/2017-02-24-Nginx配置https.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wangwenfan"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
 
           </div>
@@ -248,8 +406,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

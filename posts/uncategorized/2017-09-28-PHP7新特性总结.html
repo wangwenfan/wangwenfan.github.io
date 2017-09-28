@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://www.wangwenfan.com">
+  <title>PHP7新特性总结 | 凡夫俗子</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="为什么PHP7比PHP5性能提升了？
+变量存储字节减小，减少内存占用，提升变量操作速度
+改善数组结构，数组元素和 hash 映射表被分配在同一块内存里，降低了内存占用、提升了 cpu 缓存命中率
+改进了函数的调用机制，通过优化参数传递的环节，减少了一些指令，提高执行效率
+具体见：官方文档
+
+标量类型申明
+类型声明允许函数在调用时要求参数为特定类型。 如果给出的值类型不对，那么将会产生一个错误： 在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP7新特性总结">
+<meta property="og:url" content="http://www.wangwenfan.com/posts/uncategorized/2017-09-28-PHP7新特性总结.html">
+<meta property="og:site_name" content="凡夫俗子">
+<meta property="og:description" content="为什么PHP7比PHP5性能提升了？
+变量存储字节减小，减少内存占用，提升变量操作速度
+改善数组结构，数组元素和 hash 映射表被分配在同一块内存里，降低了内存占用、提升了 cpu 缓存命中率
+改进了函数的调用机制，通过优化参数传递的环节，减少了一些指令，提高执行效率
+具体见：官方文档
+
+标量类型申明
+类型声明允许函数在调用时要求参数为特定类型。 如果给出的值类型不对，那么将会产生一个错误： 在">
+<meta property="og:updated_time" content="2017-09-28T06:44:31.669Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP7新特性总结">
+<meta name="twitter:description" content="为什么PHP7比PHP5性能提升了？
+变量存储字节减小，减少内存占用，提升变量操作速度
+改善数组结构，数组元素和 hash 映射表被分配在同一块内存里，降低了内存占用、提升了 cpu 缓存命中率
+改进了函数的调用机制，通过优化参数传递的环节，减少了一些指令，提高执行效率
+具体见：官方文档
+
+标量类型申明
+类型声明允许函数在调用时要求参数为特定类型。 如果给出的值类型不对，那么将会产生一个错误： 在">
+  
+    <link rel="alternative" href="/atom.xml" title="凡夫俗子" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">王文凡</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">凡夫俗子博客</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wangwenfan" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/2564922925/profile?topnav=1&wvr=6&is_all=1" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/wang-wen-fan-73/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">王文凡</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="http://o97b3q0kp.bkt.clouddn.com/image964ea98c72ea39cfs.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">王文凡</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">凡夫俗子博客</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔/">随笔</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wangwenfan" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2564922925/profile?topnav=1&wvr=6&is_all=1" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/wang-wen-fan-73/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-PHP7新特性总结" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP7新特性总结
+    </h1>
+  
+
+        <a href="/posts/uncategorized/2017-09-28-PHP7新特性总结.html" class="archive-article-date">
+  	<time datetime="2017-09-28T06:43:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-28</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="为什么PHP7比PHP5性能提升了？"><a href="#为什么PHP7比PHP5性能提升了？" class="headerlink" title="为什么PHP7比PHP5性能提升了？"></a>为什么PHP7比PHP5性能提升了？</h4><ul>
+<li>变量存储字节减小，减少内存占用，提升变量操作速度</li>
+<li>改善数组结构，数组元素和 hash 映射表被分配在同一块内存里，降低了内存占用、提升了 cpu 缓存命中率</li>
+<li>改进了函数的调用机制，通过优化参数传递的环节，减少了一些指令，提高执行效率</li>
+<li>具体见：<a href="http://php.net/manual/zh/migration70.new-features.php" target="_blank" rel="external">官方文档</a></li>
+</ul>
+<h4 id="标量类型申明"><a href="#标量类型申明" class="headerlink" title="标量类型申明"></a>标量类型申明</h4><blockquote>
+<p>类型声明允许函数在调用时要求参数为特定类型。 如果给出的值类型不对，那么将会产生一个错误： 在PHP 5中，这将是一个可恢复的致命错误，而在PHP 7中将会抛出一个TypeError异常。<br>为了指定一个类型声明，类型应该加到参数名前。这个声明可以通过将参数的默认值设为NULL来实现允许传递NULL。</p>
+</blockquote>
+<ul>
+<li>php5支持的类型有<code>Classname</code>、<code>interfacename</code>、<code>self</code>、<code>array</code>、<code>callable</code>。</li>
+<li>php7新增的类型有<code>bool</code>、<code>float</code>、<code>int</code>、<code>string</code>。</li>
+<li>具体见：<a href="http://php.net/manual/zh/functions.arguments.php#functions.arguments.type-declaration" target="_blank" rel="external">类型申明</a></li>
+</ul>
+<h4 id="返回值类型申明"><a href="#返回值类型申明" class="headerlink" title="返回值类型申明"></a>返回值类型申明</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">arraysSum</span><span class="params">(array $arrays)</span>: <span class="title">array</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> $arrays;</div><div class="line">&#125;</div><div class="line">$re = arraysSum([<span class="number">1</span>, <span class="number">2</span>]);<span class="comment">//这里参数必须填数组</span></div><div class="line">var_dump($re);</div></pre></td></tr></table></figure>
+<ul>
+<li>上面的函数申明参数和返回值为array，参数里为非数组运行就会报错。</li>
+<li>具体见：<a href="http://php.net/manual/zh/functions.returning-values.php#functions.returning-values.type-declaration" target="_blank" rel="external">返回值类型申明</a></li>
+</ul>
+<h4 id="null合并运算符"><a href="#null合并运算符" class="headerlink" title="null合并运算符"></a>null合并运算符</h4><blockquote>
+<p>由于日常使用中存在大量同时使用三元表达式和 <code>isset()</code>的情况， 我们添加了<code>null</code>合并运算符 <code>(??)</code> 这个语法糖。如果变量存在且值不为<code>NULL</code>， 它就会返回自身的值，否则返回它的第二个操作数。</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//($_GET['user']不存在$username为nobody)</span></div><div class="line"><span class="comment">// php5写法</span></div><div class="line">$username = <span class="keyword">isset</span>($_GET[<span class="string">'user'</span>]) ? $_GET[<span class="string">'user'</span>] : <span class="string">'nobody'</span>;</div><div class="line"><span class="comment">// PHP7写法</span></div><div class="line">$username = $_GET[<span class="string">'user'</span>] ?? <span class="string">'nobody'</span>;</div><div class="line"><span class="comment">// PHP7写法($_GET['user']不存在获取$_POST['user']，还不存在为 'nobody')</span></div><div class="line">$username = $_GET[<span class="string">'user'</span>] ?? $_POST[<span class="string">'user'</span>] ?? <span class="string">'nobody'</span>;</div></pre></td></tr></table></figure>
+<h4 id="组合比较符"><a href="#组合比较符" class="headerlink" title="组合比较符"></a>组合比较符</h4><blockquote>
+<p>太空船操作符用于比较两个表达式。当<code>$a</code>小于、等于或大于<code>$b</code>时它分别返回-1、0或1。 比较的原则是沿用 PHP 的常规<a href="http://php.net/manual/zh/types.comparisons.php" target="_blank" rel="external">比较规则</a>进行的。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">echo 1 &lt;=&gt; 1; // 0</div><div class="line">echo 1 &lt;=&gt; 2; // -1</div><div class="line">echo 2 &lt;=&gt; 1; // 1</div></pre></td></tr></table></figure>
+<h4 id="通过-define-定义常量数组"><a href="#通过-define-定义常量数组" class="headerlink" title="通过 define() 定义常量数组"></a>通过 <code>define()</code> 定义常量数组</h4><blockquote>
+<p>Array 类型的常量现在可以通过 define() 来定义。在 PHP5.6 中仅能通过 const 定义。</p>
+</blockquote>
+<h4 id="匿名类"><a href="#匿名类" class="headerlink" title="匿名类"></a>匿名类</h4><blockquote>
+<p>现在支持通过<code>new class</code> 来实例化一个匿名类，这可以用来替代一些“用后即焚”的完整类定义。</p>
+</blockquote>
+<ul>
+<li>详细可参考<a href="http://php.net/manual/zh/language.oop5.anonymous.php" target="_blank" rel="external">匿名类</a></li>
+</ul>
+<h4 id="Unicode-codepoint-转译语法"><a href="#Unicode-codepoint-转译语法" class="headerlink" title="Unicode codepoint 转译语法"></a>Unicode codepoint 转译语法</h4><blockquote>
+<p>这接受一个以16进制形式的 Unicode codepoint，并打印出一个双引号或heredoc包围的 UTF-8 编码格式的字符串。 可以接受任何有效的 codepoint，并且开头的 0 是可以省略的。</p>
+</blockquote>
+<h4 id="Closure-call"><a href="#Closure-call" class="headerlink" title="Closure::call()"></a>Closure::call()</h4><blockquote>
+<p><code>Closure::call()</code> 现在有着更好的性能，简短干练的暂时绑定一个方法到对象上闭包并调用它。</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;<span class="keyword">private</span> $x = <span class="number">1</span>;&#125;</div><div class="line"></div><div class="line"><span class="comment">// PHP 7 之前版本的代码</span></div><div class="line">$getXCB = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;x;&#125;;</div><div class="line">$getX = $getXCB-&gt;bindTo(<span class="keyword">new</span> A, <span class="string">'A'</span>); <span class="comment">// 中间层闭包</span></div><div class="line"><span class="keyword">echo</span> $getX();</div><div class="line"></div><div class="line"><span class="comment">// PHP 7+ 及更高版本的代码</span></div><div class="line">$getX = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;x;&#125;;</div><div class="line"><span class="keyword">echo</span> $getX-&gt;call(<span class="keyword">new</span> A);</div><div class="line"><span class="comment">//以上会输出 1  1</span></div></pre></td></tr></table></figure>
+<h4 id="为unserialize-提供过滤"><a href="#为unserialize-提供过滤" class="headerlink" title="为unserialize()提供过滤"></a>为unserialize()提供过滤</h4><blockquote>
+<p>这个特性旨在提供更安全的方式解包不可靠的数据。它通过白名单的方式来防止潜在的代码注入。具体见<a href="http://php.net/manual/zh/function.unserialize.php" target="_blank" rel="external">unserialize()</a></p>
+</blockquote>
+<h4 id="会话选项"><a href="#会话选项" class="headerlink" title="会话选项"></a>会话选项</h4><blockquote>
+<p><code>session_start()</code> 可以接受一个 array 作为参数， 用来覆盖 <code>php.ini</code> 文件中设置的 会话配置选项。<br>在调用 <code>session_start()</code> 的时候， 传入的选项参数中也支持 <code>session.lazy_write</code> 行为， 默认情况下这个配置项是打开的。它的作用是控制 PHP 只有在会话中的数据发生变化的时候才 写入会话存储文件，如果会话中的数据没有发生改变，那么 PHP 会在读取完会话数据之后， 立即关闭会话存储文件，不做任何修改，可以通过设置 <code>read_and_close</code> 来实现。</p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/911605072198855007.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://o97b3q0kp.bkt.clouddn.com/wangwenfan/51608332454170581.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php-work/">php work</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.wangwenfan.com/posts/uncategorized/2017-09-28-PHP7新特性总结.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/posts/uncategorized/2017-09-27-javascript-分片上传文件demo.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">javascript 分片上传文件demo</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="PHP7新特性总结" data-title="PHP7新特性总结" data-url="http://www.wangwenfan.com/posts/uncategorized/2017-09-28-PHP7新特性总结.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wangwenfan"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 王文凡
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">phpcms work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php 设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">php javascript work</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work web php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">life</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">work javascript</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">坐标&lt;br&gt;成都&lt;br&gt;PHP码农</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
